@@ -1,0 +1,14 @@
+stages:
+  - build
+
+variables:
+  DOCKER_HUB_REPO: quantum1o1/email_reader
+
+build:
+  stage: build
+  script:
+    - docker build -t EmailReader .
+    - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+    - docker push $DOCKER_HUB_REPO
+  only:
+    - master
